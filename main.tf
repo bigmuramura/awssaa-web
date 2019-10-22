@@ -8,7 +8,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "awssaa-web-vpc" {
-    cidr_block = "172.16.0.0./16"
+    cidr_block = "172.16.0.0/16"
     tags = {
         Name = "awssaa-web-vpc"
     }
