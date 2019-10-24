@@ -38,12 +38,12 @@ resource "aws_route_table" "public-rt" {
 # ルーティング設定
 resource "aws_route" "public" {
   route_table_id         = aws_route_table.public-rt.id
-  gateway_id             = aws_internet_gatway.igw.id
+  gateway_id             = aws_internet_gateway.igw.id
   destination_cidr_block = "0.0.0.0/0"
 }
 
 # サブネットとルートテーブルの紐付け
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws.subnet.public-subnet.id
+  subnet_id      = aws_subnet.public-subne.id
   route_table_id = aws_route_table.public-rt.id
 }
