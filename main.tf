@@ -32,13 +32,16 @@ resource "aws_subnet" "public-subnet" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.awssaa-vpc.id
   tags = {
-    Name = "igw"
+    Name = "awssaa-igw"
   }
 }
 
 # ルートテーブル作成
 resource "aws_route_table" "public-rt" {
   vpc_id = aws_vpc.awssaa-vpc.id
+  tags = {
+    Name = "awssaa-public-rt"
+  }
 }
 
 # ルーティング設定
