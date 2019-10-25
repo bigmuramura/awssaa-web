@@ -23,11 +23,17 @@ resource "aws_subnet" "public-subnet" {
   cidr_block              = "172.16.10.0/24"
   map_public_ip_on_launch = true # インスタンスにパブリックIP自動割り当て有効
   availability_zone       = "ap-northeast-1a"
+  tags = {
+    Name = "public-subnet"
+  }
 }
 
 # インターネットゲートウェイ作成
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.awssaa-vpc.id
+  tags = {
+    Name = "igw"
+  }
 }
 
 # ルートテーブル作成
