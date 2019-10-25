@@ -17,7 +17,7 @@ resource "aws_vpc" "awssaa-vpc" {
   }
 }
 
-# サブネット作成
+# サブネット作成 Public
 resource "aws_subnet" "public-subnet" {
   vpc_id                  = aws_vpc.awssaa-vpc.id
   cidr_block              = "172.16.10.0/24"
@@ -25,6 +25,17 @@ resource "aws_subnet" "public-subnet" {
   availability_zone       = "ap-northeast-1a"
   tags = {
     Name = "public-subnet"
+  }
+}
+
+# サブネット作成 Private
+resource "aws_subnet" "private-subnet" {
+  vpc_id                  = aws_vpc.awssaa-vpc.id
+  cidr_block              = "172.16.20.0/24"
+  map_public_ip_on_launch = false # インスタンスにパブリックIP自動割り当てない
+  availability_zone       = "ap-northeast-1a"
+  tags = {
+    Name = "private-subnet"
   }
 }
 
@@ -44,6 +55,13 @@ resource "aws_route_table" "public-rt" {
   }
 }
 
+resource "aws_route_table" "private-rt" {
+  vpc_id = aws_vpc.awssaa-vpc.id
+  tags = {
+    Name = "awssaa-private-rt"
+  }
+}
+
 # ルーティング設定
 resource "aws_route" "public" {
   route_table_id         = aws_route_table.public-rt.id
@@ -56,3 +74,9 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-rt.id
 }
+
+resource "aws_route_table_association" "private" {
+  subnet_id      = aws_subnet.private-subnet.id
+  route_table_id = aws_route_table.private-rt
+}
+
