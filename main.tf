@@ -80,3 +80,17 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private-rt.id
 }
 
+# NATゲートウェイ作成 Privateサブネット用
+## 先にNATゲートウェイ用のEIPを作成する必要がある
+resource "aws_eip" "nat-gateway-eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.igw]
+  # memo NATゲートウェイは暗黙的にIGWに依存している。
+  #      depends onでIGW作成後にNATゲートウェイ作成することを保証する
+}
+
+resource "aws_nat_gateway" "nat-gateway" {
+  allocation_id = aws_eip.naigateway-eip.id
+  subnet_id     = aws_subnet.private-subnet.subnet_id
+  depends_on    = [aws_internet_gateway.igw]
+}
