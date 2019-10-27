@@ -97,7 +97,7 @@ resource "aws_eip" "nat-gateway-eip" {
 
 resource "aws_nat_gateway" "nat-gateway" {
   allocation_id = aws_eip.nat-gateway-eip.id
-  subnet_id     = aws_subnet.private-subnet.id
+  subnet_id     = aws_subnet.public-subnet.id # NATゲートウェイ自体はPublicに置かれる
   depends_on    = [aws_internet_gateway.igw]
   tags = {
     Name = "awssaa-nat-gateway"
