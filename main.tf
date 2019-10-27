@@ -69,12 +69,6 @@ resource "aws_route" "public" {
   destination_cidr_block = "0.0.0.0/0"
 }
 
-resource "aws_route" "private" {
-  route_table_id         = aws_route_table.private-rt.id
-  gateway_id             = aws_nat_gateway.nat-gateway.id
-  destination_cidr_block = "0.0.0.0/0"
-}
-
 # サブネットとルートテーブルの紐付け
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public-subnet.id
@@ -102,4 +96,11 @@ resource "aws_nat_gateway" "nat-gateway" {
   tags = {
     Name = "awssaa-nat-gateway"
   }
+}
+
+# ルーティング設定
+resource "aws_route" "private" {
+  route_table_id         = aws_route_table.private-rt.id
+  gateway_id             = aws_nat_gateway.nat-gateway.id
+  destination_cidr_block = "0.0.0.0/0"
 }
