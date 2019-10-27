@@ -101,6 +101,6 @@ resource "aws_nat_gateway" "nat-gateway" {
 # ルーティング設定
 resource "aws_route" "private" {
   route_table_id         = aws_route_table.private-rt.id
-  gateway_id             = aws_nat_gateway.nat-gateway.id
+  nat_gateway_id         = aws_nat_gateway.nat-gateway.id
   destination_cidr_block = "0.0.0.0/0"
 }
