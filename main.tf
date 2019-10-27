@@ -47,7 +47,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# ルートテーブル作成
+# ルートテーブル作成 Public
 resource "aws_route_table" "public-rt" {
   vpc_id = aws_vpc.awssaa-vpc.id
   tags = {
@@ -55,6 +55,7 @@ resource "aws_route_table" "public-rt" {
   }
 }
 
+# ルートテーブル作成 Private
 resource "aws_route_table" "private-rt" {
   vpc_id = aws_vpc.awssaa-vpc.id
   tags = {
@@ -62,7 +63,7 @@ resource "aws_route_table" "private-rt" {
   }
 }
 
-# ルーティング設定
+# ルーティング設定 Public
 resource "aws_route" "public" {
   route_table_id         = aws_route_table.public-rt.id
   gateway_id             = aws_internet_gateway.igw.id
@@ -98,7 +99,7 @@ resource "aws_nat_gateway" "nat-gateway" {
   }
 }
 
-# ルーティング設定
+# ルーティング設定 Private
 resource "aws_route" "private" {
   route_table_id         = aws_route_table.private-rt.id
   nat_gateway_id         = aws_nat_gateway.nat-gateway.id
