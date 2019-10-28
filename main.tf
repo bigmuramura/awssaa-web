@@ -129,8 +129,9 @@ resource "aws_route_table" "private-rt1" {
   tags = {
     Name = "awssaa-private-rt1"
   }
+}
 
-}resource "aws_route_table" "private-rt2" {
+resource "aws_route_table" "private-rt2" {
   vpc_id = aws_vpc.awssaa-vpc.id
   tags = {
     Name = "awssaa-private-rt2"
