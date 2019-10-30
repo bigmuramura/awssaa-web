@@ -45,7 +45,7 @@ resource "aws_subnet" "private-subnet-1a" {
   map_public_ip_on_launch = false # インスタンスにパブリックIP自動割り当てない
   availability_zone       = "ap-northeast-1a"
   tags = {
-    Name = "private-subnet-1"
+    Name = "private-subnet-1a"
   }
 }
 
