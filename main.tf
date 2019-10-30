@@ -145,7 +145,7 @@ resource "aws_route" "private-1a" {
 }
 
 resource "aws_route" "private-1c" {
-  route_table_id         = aws_route_table.private-rt1.id
+  route_table_id         = aws_route_table.private-rt2.id
   nat_gateway_id         = aws_nat_gateway.nat-gateway-1c.id
   destination_cidr_block = "0.0.0.0/0"
 }
